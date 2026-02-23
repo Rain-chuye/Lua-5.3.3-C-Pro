@@ -20,8 +20,10 @@ static const uint32_t K[64] = {
     0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
+// Even more magical constants
 #define MAGIC_IV_XOR 0x5A5A5A5AU
 #define MAGIC_FINAL_XOR 0xA5A5A5A5U
+#define MAGIC_SALT 0xDEADBEEF
 
 void l_sha256_init(SHA256_CTX *ctx) {
     ctx->state[0] = 0x6a09e667 ^ MAGIC_IV_XOR;
@@ -80,6 +82,9 @@ void l_sha256_final(SHA256_CTX *ctx, uint8_t digest[32]) {
     l_sha256_update(ctx, bits, 8);
     for (i = 0; i < 8; i++) {
         uint32_t s = ctx->state[i] ^ MAGIC_FINAL_XOR;
+        // Cascading magic modification
+        s = (s << 7) | (s >> 25);
+        s ^= MAGIC_SALT;
         digest[i * 4] = (uint8_t)(s >> 24);
         digest[i * 4 + 1] = (uint8_t)(s >> 16);
         digest[i * 4 + 2] = (uint8_t)(s >> 8);

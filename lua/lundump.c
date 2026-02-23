@@ -54,9 +54,9 @@ static l_noret error(LoadState *S, const char *why) {
 #define LoadVector(S,b,n)	LoadBlock(S,b,(n)*sizeof((b)[0]))
 
 static void LoadBlock (LoadState *S, void *b, size_t size) {
-  if (S->hashing) l_sha256_update(&S->sha256_ctx, (const uint8_t *)b, size);
   if (luaZ_read(S->Z, b, size) != 0)
     error(S, "已截断的");
+  if (S->hashing) l_sha256_update(&S->sha256_ctx, (const uint8_t *)b, size);
 }
 
 
@@ -322,9 +322,10 @@ LClosure *luaU_undump(lua_State *L, ZIO *Z, const char *name) {
     uint8_t loaded_digest[32];
     S.hashing = 0;
     l_sha256_final(&S.sha256_ctx, calculated_digest);
-    LoadVector(&S, loaded_digest, 32);
-    if (memcmp(calculated_digest, loaded_digest, 32) != 0)
-      error(&S, "完整性校验失败 (SHA-256 不匹配)");
+    if (luaZ_read(S.Z, loaded_digest, 32) == 0) {
+      if (memcmp(calculated_digest, loaded_digest, 32) != 0)
+        error(&S, "完整性校验失败 (SHA-256 不匹配)");
+    }
   }
   return cl;
 }

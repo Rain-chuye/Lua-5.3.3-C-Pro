@@ -147,7 +147,7 @@ ldebug.o: ldebug.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \
 ldo.o: ldo.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \
  lobject.h ltm.h lzio.h lmem.h ldebug.h ldo.h lfunc.h lgc.h lopcodes.h \
  lparser.h lstring.h ltable.h lundump.h lvm.h
-ldump.o: ldump.c lprefix.h lua.h luaconf.h lobject.h llimits.h lstate.h \ lsha256.h
+ldump.o: ldump.c lprefix.h lua.h luaconf.h lobject.h llimits.h lstate.h \
  ltm.h lzio.h lmem.h lundump.h
 lfunc.o: lfunc.c lprefix.h lua.h luaconf.h lfunc.h lobject.h llimits.h \
  lgc.h lstate.h ltm.h lzio.h lmem.h
@@ -184,7 +184,7 @@ ltm.o: ltm.c lprefix.h lua.h luaconf.h ldebug.h lstate.h lobject.h \
 lua.o: lua.c lprefix.h lua.h luaconf.h lauxlib.h lualib.h
 luac.o: luac.c lprefix.h lua.h luaconf.h lauxlib.h lobject.h llimits.h \
  lstate.h ltm.h lzio.h lmem.h lundump.h ldebug.h lopcodes.h
-lundump.o: lundump.c lprefix.h lua.h luaconf.h ldebug.h lstate.h \ lsha256.h
+lundump.o: lundump.c lprefix.h lua.h luaconf.h ldebug.h lstate.h \
  lobject.h llimits.h ltm.h lzio.h lmem.h ldo.h lfunc.h lstring.h lgc.h \
  lundump.h
 lutf8lib.o: lutf8lib.c lprefix.h lua.h luaconf.h lauxlib.h lualib.h
@@ -195,4 +195,3 @@ lzio.o: lzio.c lprefix.h lua.h luaconf.h llimits.h lmem.h lstate.h \
  lobject.h ltm.h lzio.h
 
 # (end of Makefile)
-lsha256.o: lsha256.c lsha256.h
