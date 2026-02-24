@@ -33,6 +33,7 @@
 *****************************************************************************/
 
 #include "luajava.h"
+#include "lua_compat.h"
 #include <jni.h>
 #include <stdio.h>
 #include <stdlib.h>
